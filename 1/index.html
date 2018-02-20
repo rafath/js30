@@ -1,0 +1,102 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="../boiler/site.webmanifest">
+  <link rel="apple-touch-icon" href="../boiler/icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="../boiler/css/normalize.css">
+  <link rel="stylesheet" href="../boiler/css/main.css">
+  <style>
+    ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    ul li {
+      border: 2px solid #000;
+      padding: 10px;
+      margin: 10px;
+      list-style: none;
+      min-width: 20px;
+      text-align: center;
+      transition: all 0.5s;
+    }
+
+    .playing {
+      transform: scale(1.1);
+      border: 4px solid #b3d4fc;
+      box-shadow: 0 0 10px #ffc600;
+    }
+  </style>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+  your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<h1>Zagraj na pianinie panie Janie....</h1>
+
+<ul>
+  <li class="key" data-key="65">a</li>
+  <li class="key" data-key="83">s</li>
+  <li class="key" data-key="68">d</li>
+  <li class="key" data-key="70">f</li>
+  <li class="key" data-key="71">g</li>
+  <li class="key" data-key="72">h</li>
+  <li class="key" data-key="74">j</li>
+  <li class="key" data-key="75">k</li>
+  <li class="key" data-key="76">l</li>
+</ul>
+<script src="../boiler/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../boiler/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+<script src="../boiler/js/plugins.js"></script>
+<script src="../boiler/js/main.js"></script>
+
+<audio data-key="65" src="sounds/a1.wav"></audio>
+<audio data-key="83" src="sounds/a1s.wav"></audio>
+<audio data-key="68" src="sounds/b1.wav"></audio>
+<audio data-key="70" src="sounds/c1.wav"></audio>
+<audio data-key="71" src="sounds/c1s.wav"></audio>
+<audio data-key="72" src="sounds/c2.wav"></audio>
+<audio data-key="74" src="sounds/d1.wav"></audio>
+<audio data-key="75" src="sounds/d1s.wav"></audio>
+<audio data-key="76" src="sounds/e1.wav"></audio>
+
+<script>
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if (!audio) {
+      console.log(e.keyCode);
+      return;
+    }
+    audio.currentTime = 0; // rewind to the start
+    audio.play();
+    key.classList.add('playing');
+  }
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+  window.addEventListener('keydown', playSound);
+</script>
+
+</body>
+</html>

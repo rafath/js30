@@ -1,0 +1,8 @@
+resources/*
+# Ignore all logfiles and tempfiles.
+*.sw*
+.idea
+.DS_Store
+/.project
+/log
+/tmp
